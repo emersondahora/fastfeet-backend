@@ -6,6 +6,7 @@ import cors from 'cors';
 import Youch from 'youch';
 
 import 'express-async-errors';
+import './database/index';
 
 import routes from './routes';
 
