@@ -3,6 +3,7 @@ import { Router } from 'express';
 import authMiddleware from './app/middlewares/auth';
 
 import SessionControler from './app/controller/SessionController';
+import RecipientControler from './app/controller/RecipientController';
 
 const routes = new Router();
 
@@ -11,6 +12,7 @@ routes.post('/session', SessionControler.store);
 
 routes.use(authMiddleware);
 /** Private routes */
-routes.get('/', (req, res) => res.json({ application: 'Fast Feet' }));
+routes.post('/recipients', RecipientControler.store);
+routes.put('/recipients/:id', RecipientControler.update);
 
 export default routes;

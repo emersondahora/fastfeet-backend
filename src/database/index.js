@@ -3,8 +3,9 @@ import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
+import Recipient from '../app/models/Recipient';
 
-const models = [User];
+const models = [User, Recipient];
 
 class Database {
   constructor() {
@@ -12,7 +13,6 @@ class Database {
   }
 
   init() {
-    console.log(databaseConfig);
     this.connection = new Sequelize(databaseConfig);
     models
       .map(model => model.init(this.connection))
