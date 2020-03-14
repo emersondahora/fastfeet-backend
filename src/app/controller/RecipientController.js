@@ -3,27 +3,13 @@ import Sequelize, { Op } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
-const existsRecipient = async (name, id) => {
-  let where = Sequelize.where(Sequelize.fn('lower', Sequelize.col('name')), {
-    [Op.like]: String(name).toLowerCase(),
-  });
-  if (id) {
-    where = {
-      [Op.and]: [
-        where,
-        {
-          id: {
-            [Op.ne]: id,
-          },
-        },
-      ],
-    };
-  }
-
+const existsRecipient = async (name, id = 0) => {
   const recipient = await Recipient.findOne({
-    where,
+    where: Sequelize.where(Sequelize.fn('lower', Sequelize.col('name')), {
+      [Op.like]: String(name).toLowerCase(),
+    }),
   });
-  return !!recipient;
+  return recipient ? Number(recipient.id) !== Number(id) : !!recipient;
 };
 
 class RecipientController {
