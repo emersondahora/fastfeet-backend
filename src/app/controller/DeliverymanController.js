@@ -11,6 +11,23 @@ const deliverymanExists = async email => {
 };
 
 class DeliverymanController {
+  async show(req, res) {
+    const deliveryman = await Deliveryman.findByPk(req.params.id, {
+      attributes: ['id', 'name', 'email'],
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman not found' });
+    }
+    return res.json(deliveryman);
+  }
+
   async index(req, res) {
     const { page = 1 } = req.query;
     const deliverymen = await Deliveryman.findAll({

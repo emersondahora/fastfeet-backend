@@ -20,9 +20,10 @@ routes.use(authMiddleware);
 routes.post('/recipients', RecipientControler.store);
 routes.put('/recipients/:id', RecipientControler.update);
 
-routes.post('/deliverymen', DeliverymanController.store);
-routes.put('/deliverymen/:id', DeliverymanController.update);
 routes.get('/deliverymen', DeliverymanController.index);
+routes.post('/deliverymen', DeliverymanController.store);
+routes.get('/deliverymen/:id', DeliverymanController.show);
+routes.put('/deliverymen/:id', DeliverymanController.update);
 routes.delete('/deliverymen/:id', DeliverymanController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
